@@ -73,17 +73,8 @@ function Stop()
 		exit 0
 	fi
 	
-	TOOL_STATUS=$(vmrun checkToolsState "${VMX_PATH}")
-	
-	if [[ ${TOOL_STATUS} == "installed" ]]; then
-		Log "VMware tools are: ${TOOL_STATUS}. Attempting a soft shutdown."
-		vmrun stop "${VMX_PATH}" soft
-		Log "vmrun exited with code: ${?}"
-	else
-		Log "VMware tools are: ${TOOL_STATUS}. Attempting a hard shutdown."
-		vmrun stop "${VMX_PATH}" hard
-		Log "vmrun exited with code: ${?}"
-	fi
+	vmrun suspend "${VMX_PATH}" hard
+	Log "vmrun exited with code: ${?}"
 	
 	Log "Finished vmrun.wrapper Stop cmd."
 	exit 0
